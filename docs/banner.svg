@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title description">
+  <title id="title">Aegis Home</title>
+  <desc id="description">A warm cream and gold banner. A little care. A little comfort. Every day.</desc>
+  <defs><linearGradient id="cream" x2="1" y2="1"><stop stop-color="#fcfaf3"/><stop offset="1" stop-color="#eee1c5"/></linearGradient></defs>
+  <rect width="1280" height="360" rx="20" fill="url(#cream)"/>
+  <rect x="20" y="20" width="1240" height="320" rx="10" fill="none" stroke="#c9ac72" stroke-opacity=".5"/>
+  <g fill="none" stroke="#a48242" stroke-width="1.3" opacity=".65">
+    <circle cx="1040" cy="177" r="120"/><circle cx="1040" cy="177" r="108" stroke-dasharray="2 7"/>
+    <path d="M1040 273c-72-51-72-114 0-180 72 66 72 129 0 180Z" fill="#e4cfa044"/>
+    <path d="M1040 273c-90-5-125-69-101-125 57 9 96 66 101 125Zm0 0c90-5 125-69 101-125-57 9-96 66-101 125Z" fill="#ecd9b455"/>
+    <path d="M1040 273c-85 23-137-14-144-61 56-12 105 15 144 61Zm0 0c85 23 137-14 144-61-56-12-105 15-144 61Z"/>
+    <path d="M1040 270V131m-145 176h290"/>
+  </g>
+  <text x="85" y="93" font-family="Arial,sans-serif" font-size="13" letter-spacing="4" fill="#886627">CARE, CLOSER TO HOME</text>
+  <text x="80" y="181" font-family="Georgia,serif" font-size="76" fill="#373128">Aegis Home</text>
+  <text x="85" y="229" font-family="Arial,sans-serif" font-size="23" fill="#75664c">A little care. A little comfort. Every day.</text>
+  <path d="M85 262h62" stroke="#a48242" stroke-width="2"/>
+  <text x="85" y="299" font-family="Arial,sans-serif" font-size="13" letter-spacing="2" fill="#886627">ENGLISH + HINDI  /  STEP 1: DESIGN PREVIEW</text>
+</svg>
