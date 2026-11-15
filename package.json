@@ -1,11 +1,11 @@
 {
   "name": "aegis-home",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "A calmer place for everyday care. English and Hindi design preview.",
   "scripts": {
     "start": "node scripts/serve.cjs",
-    "check": "node --check public/app.js && node --check scripts/serve.cjs && node --check scripts/build-preview.cjs && node --check public/dose-ledger.js && node --check public/medicines.js",
+    "check": "node --check public/app.js && node --check scripts/serve.cjs && node --check scripts/build-preview.cjs && node --check public/dose-ledger.js && node --check public/medicines.js && node --check public/alarm-clock.js && node --check public/alarms.js",
     "build:preview": "node scripts/build-preview.cjs",
     "test": "node --test tests/*.test.cjs"
   }

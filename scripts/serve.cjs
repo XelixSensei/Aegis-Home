@@ -5,6 +5,9 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '../public');
 const port = Number(process.env.PORT || 4174);
 const routes = {
+  '/alarms.css': ['alarms.css', 'text/css'],
+  '/alarm-clock.js': ['alarm-clock.js', 'text/javascript'],
+  '/alarms.js': ['alarms.js', 'text/javascript'],
   '/medicines.css': ['medicines.css', 'text/css'],
   '/dose-ledger.js': ['dose-ledger.js', 'text/javascript'],
   '/medicines.js': ['medicines.js', 'text/javascript'],

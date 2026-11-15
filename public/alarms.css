@@ -1,0 +1,10 @@
+.alarm-panel{margin:20px 0;padding:22px;border:1px solid #cbb477;background:#fffaf0;border-radius:16px;line-height:1.65;color:#43371e}
+.alarm-panel p{margin:8px 0 16px;font-size:17px}.alarm-panel h2{font-family:inherit;font-size:23px;font-weight:700}
+.alarm-actions{display:flex;gap:12px;flex-wrap:wrap}.alarm-actions .btn{min-height:52px;font-size:17px;font-weight:700}
+.alarm-row{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid #e3d8c1;flex-wrap:wrap}
+.alarm-row h3{font-size:20px;font-weight:700}.alarm-row p{margin:5px 0;font-size:17px}.alarm-row .details{flex:1;min-width:180px}
+.alarm-check{display:flex;align-items:center;gap:12px;font-size:17px}.alarm-check input{width:24px;min-height:24px;height:24px;accent-color:#79561c}
+#alarm-dialog{width:560px;font-size:19px;line-height:1.6;border:2px solid #a27b34}#alarm-dialog h2{font:700 26px 'DM Sans','Noto Sans Devanagari',sans-serif}#alarm-dialog .btn{min-height:56px;font-size:18px;flex:1}
+#alarm-dialog .alarm-kind{font-size:16px;color:#685322;font-weight:700}#alarm-dialog .alarm-actions{margin-top:24px}
+.alarm-count{font-size:16px;font-weight:700}.alarm-panel .muted{color:#665b45}
+@media(max-width:540px){.alarm-actions .btn{flex:1;min-width:135px}.alarm-row{gap:12px}.alarm-panel{padding:18px}#alarm-dialog{padding:22px}.alarm-row .alarm-actions{width:100%}}
