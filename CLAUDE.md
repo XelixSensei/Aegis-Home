@@ -14,7 +14,7 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
   - small Node endpoints in `api/` (Vercel functions), reused by `scripts/serve.cjs` locally
   - **Supabase** for accounts and shared data (see `docs/supabase-setup.md`)
 - Dependencies: `@anthropic-ai/sdk`. Dev: `@electric-sql/pglite`. Browser: `@supabase/supabase-js@2.118.0` from jsdelivr.
-- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js` → supabase-js (CDN) → `phone.js` → `backend.js` → `step5.js` → `quotes.js` → `step5-extras.js` → `step5-people.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css` and `step4.css`.
+- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js` → supabase-js (CDN) → `phone.js` → `backend.js` → `step5.js` → `quotes.js` → `step5-extras.js` → `step5-people.js` → `step6.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css`, `step4.css`, `step5.css` and `step6.css`.
 - `app.js`: the core UI. It has a global `state`, page renderers, `render()`, `bind()`, `actions`, `modal()`, `toast()` and `save()`. Lines are very long and minified-style. The page map inside `render()` is fixed: home, meds, routine, appointments, music, chat, care, settings. A new page means changing `render()` and the `navs` list.
 - Pure logic in UMD form, so it runs in the browser and in Node tests:
   - `dose-ledger.js`: medicine status
@@ -44,13 +44,14 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
 - **Time:** use India Standard Time (`Asia/Kolkata`) everywhere.
 - **Storage:** app state lives in localStorage under `aegis-step2-v1`. Photos live in IndexedDB.
 - **Adding a public file:** reference it in `index.html`. The server serves anything in `public/` with a known extension, `npm run check` covers every JS file automatically, and the preview build inlines every `<link>` and `<script>`.
+- **Names people see (Xelix's choice):** the AI companion is **Yaar** (Hindi **यार**), never "Saathi". The family group is **Trusted People** (Hindi **अपने लोग**), never "care circle". Code names stay as they are (`saathi-local.js`, `/api/saathi`, `SaathiLocal`, `circle`, `care_links`, page id `care`).
 - **Honest copy:** never mention a feature that isn't built yet. Say plainly when AI or search is offline.
 
 ## Commands
 ```sh
 npm install
 npm start                    # http://127.0.0.1:4174 (reads .env)
-npm test                     # node:test, tests/*.test.cjs + *.test.mjs (35 tests, including Supabase RLS)
+npm test                     # node:test, tests/*.test.cjs + *.test.mjs (36 tests, including Supabase RLS and alerts)
 npm run check                # syntax check of every JS file
 npm run build:preview        # writes previews/<aegisStep>.html (aegisStep is set in package.json)
 ```
@@ -77,17 +78,32 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
   - [x] First-use tour (7 steps; size and narrator choices on the last step)
   - [x] Loved ones: name/nickname, photo, video, voice notes; Supabase for a signed-in grandparent, IndexedDB otherwise
 
-**Step 6** (next)
-- [ ] WhatsApp: emergency messages, medicine photo sharing to the care circle, live location
-- [ ] Today's medicines: recording a photo marks a dose taken; the care circle can see the photos; alert the care circle when no meds are taken
-- [ ] Profile buttons: "I've been abandoned" alert to the nearest verified elderly homes (with location), and a caretaker emergency alert
-- [ ] Emergency services section: hospital/ambulance 108, police 100/112, fire 101, women 1091, Elderline 14567 and others
+- [x] Step 6 (branch `step-6`, PR #7):
+  - [x] WhatsApp: prefilled `wa.me` messages with map links (to caretakers, to anyone, check-in photo via Web Share). Not auto-sent; that would need the WhatsApp Business API.
+  - [x] Live location: `update_alert_location` every 30 s while an alert is open and the app is open
+  - [x] Today's medicines: meds mirrored to Supabase (`m.remoteId`); check-in photos uploaded to `checkins/<uid>/<day>/<medId>.jpg`; caretakers see "Today's care" with photos
+  - [x] Missed-dose alerts: `check_missed_doses()`, run by pg_cron every 10 minutes; one alert per med per day (`dedupe_key`)
+  - [x] Profile and Help page buttons: "Alert my family" (emergency → care circle) and "I have been abandoned" (→ `nearest_homes`); tap twice to send; "I'm safe now" resolves
+  - [x] Caretaker and home views: realtime alert pop-up (`#care-alert`), Alerts section, I'm on it / Resolved
+  - [x] Emergency services page `help` (nav position 2): 112, 108, 100, 101, 14567, 1091, 1930, 14416, 104, 1078, plus nearby Maps links
 
 **After the steps**
 - [ ] Deploy to Vercel and push to GitHub; Cloud Run deployment for the challenge; final testing and submission
 
 ## Change log
 Newest first.
+
+- **2026-11-15 (rename)**: Branch `step-6`.
+  - On every screen and in README/docs: "care circle" → **Trusted People** (Hindi "देखभाल समूह/साथी" → **अपने लोग**, with grammar fitted), and "Saathi" → **Yaar** (Hindi साथी → यार; "AI साथी" meaning companion is kept).
+  - The AI system prompt now says "You are Yaar". Nothing else changed: no code names, files, routes or screenshots. Screenshots in `docs/screens` still show the old names.
+
+- **2026-11-15 (Step 6)**: Branch `step-6`, v0.6.0.
+  - Added `supabase/migrations/0002_alerts.sql` (idempotent; Xelix ran it on the live project), `public/step6.js` and `step6.css`. `backend.js` gained the sync, alert and realtime calls.
+  - `step5.js` now exposes `window.backendReady`; never call `Backend.start()` twice.
+  - Tests: `tests/helpers/supabase.mjs` holds the shared PGlite + Supabase stub; `tests/supabase-alerts.test.mjs` is new; 36 tests in total.
+  - The live two-browser test (`%TEMP%/aegis-shots/e2e6.mjs`) passed 9/9.
+  - Test accounts: +917000461749 (grandparent) and +917000541391 (caretaker).
+  - Docs: `docs/step-6.md`; screenshots: `docs/screens/step-6-*`; preview: `previews/step-6.html`. The README is updated.
 
 - **2026-11-15 (README)**: Branch `readme`. Rewrote `README.md` as the full-project overview: why, who it's for, features, phone screenshots, Step 6 plans, architecture, privacy/security, setup, tests, structure, checkpoints and honest limits. Also wrote a ~100-word LinkedIn description (given in chat, not stored in the repo).
 

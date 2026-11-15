@@ -1,4 +1,4 @@
-# Step 5: accounts, care circle, loved ones, and comfort for older eyes
+# Step 5: accounts, Trusted People, loved ones, and comfort for older eyes
 
 This step builds on Step 4. The white-and-gold design is unchanged; text is a little heavier and larger, and each feature below was added in the same style.
 
@@ -11,7 +11,7 @@ This step builds on Step 4. The white-and-gold design is unchanged; text is a li
 - Without Supabase (for example the downloadable preview), the app works as before on the device.
 - Setup guide: [supabase-setup.md](supabase-setup.md).
 
-### 2. A real care circle
+### 2. A real Trusted People
 - A grandparent creates a **6-digit invite code**, either "view my care" or "help manage". It works once, for 24 hours, with 5 tries, and can be shared on WhatsApp in one tap.
 - A caretaker enters the grandparent's number and code to join, then sees them with **Call** and **WhatsApp** buttons.
 - The grandparent sees everyone who joined, can switch them between view-only and help-manage, and can remove them at any time. Caretakers can leave.
@@ -19,7 +19,7 @@ This step builds on Step 4. The white-and-gold design is unchanged; text is a li
 ### 3. My loved ones
 - Add someone by **name or nickname**, with a **photo**, a **video** and **voice notes**. Voice notes can be recorded in the app or chosen as audio files.
 - Tap a person to see their photo, play their voice notes and watch their video.
-- A signed-in grandparent's loved ones are stored privately online and shared with their care circle. Otherwise they stay on the device.
+- A signed-in grandparent's loved ones are stored privately online and shared with their Trusted People. Otherwise they stay on the device.
 
 ### 4. A thought for today
 - A small card on the Today page, in English or Hindi to match the app language. It uses simple words, sometimes with a little humour.
@@ -29,7 +29,7 @@ This step builds on Step 4. The white-and-gold design is unchanged; text is a li
 ### 5. Easier to read and to tap
 - Slightly heavier text, larger labels and higher contrast throughout. Buttons are at least 48 px tall.
 - **Three sizes:** Standard, Large and Extra large. Text, buttons and spacing all grow together. Choose them in Settings, or tap the A+ button to step through them.
-- **Phones:** every page, including Care circle, Loved ones and Settings, is reachable from the bottom bar, which scrolls sideways. The account avatar stays in the top bar.
+- **Phones:** every page, including Trusted People, Loved ones and Settings, is reachable from the bottom bar, which scrolls sideways. The account avatar stays in the top bar.
 
 ### 6. Narrator for people who can't see the screen well
 - Settings → **Narrator**. When it is on:
@@ -62,8 +62,8 @@ This step builds on Step 4. The white-and-gold design is unchanged; text is a li
 | Extra large size | | ![](screens/step-5-xlarge-phone.png) |
 | Tour | ![](screens/step-5-tour-desktop.png) | ![](screens/step-5-tour-last-phone.png) |
 | Settings | ![](screens/step-5-settings-desktop.png) | ![](screens/step-5-settings-phone.png) |
-| Care circle (grandparent) | ![](screens/step-5-care-grandparent-desktop.png) | ![](screens/step-5-care-invite-phone.png) |
-| Care circle (caretaker) | ![](screens/step-5-care-caretaker-desktop.png) | ![](screens/step-5-care-caretaker-phone.png) |
+| Trusted People (grandparent) | ![](screens/step-5-care-grandparent-desktop.png) | ![](screens/step-5-care-invite-phone.png) |
+| Trusted People (caretaker) | ![](screens/step-5-care-caretaker-desktop.png) | ![](screens/step-5-care-caretaker-phone.png) |
 | Loved ones | ![](screens/step-5-loved-desktop.png) | ![](screens/step-5-loved-detail-phone.png) |
 
 ## Honest limits

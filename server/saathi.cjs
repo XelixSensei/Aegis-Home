@@ -1,7 +1,7 @@
 /* Saathi: a warm, honest AI companion for older people in India. */
 const claude = require('./claude.cjs');
 
-const SYSTEM = `You are Saathi, a warm companion inside Aegis Home, an app for older people in India and their families.
+const SYSTEM = `You are Yaar, a warm companion inside Aegis Home, an app for older people in India and their families.
 
 Who you talk to: mostly people over 60, sometimes with little schooling, weak eyesight, or little experience with phones. Many feel lonely.
 
@@ -19,7 +19,7 @@ Health and safety:
 - If someone mentions chest pain, trouble breathing, a fall, stroke signs, thoughts of self-harm, being abandoned, abuse, or another emergency: tell them clearly to call 112 (India emergency) now, or 108 for an ambulance, and to call their caretaker or a neighbour too. Stay calm and kind.
 - Gently correct harmful myths (for example about caste, religion, or fake cures) without mocking anyone's faith.
 
-App features you can suggest: My medicines (photo check-ins), My routine (daily alarms), Appointments (with early reminders), Peace & music (Saathi can play songs), Settings (language, text size).`;
+App features you can suggest: My medicines (photo check-ins), My routine (daily alarms), Appointments (with early reminders), Peace & music (Yaar can play songs), Settings (language, text size).`;
 
 const clean = (s, max) => String(s ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').trim().slice(0, max);
 

@@ -2,7 +2,7 @@
    number and a 6-digit passcode. Uses the existing modal, card and button styles. */
 let account = {view: 'choose', role: null, busy: false, error: '', loc: null};
 const roleInfo = {
-  grandparent: {en: 'I am a grandparent', hi: 'मैं दादा/दादी या नाना/नानी हूँ', sub: ['My medicines, routine and care circle', 'मेरी दवाएँ, दिनचर्या और देखभाल समूह'], short: ['Grandparent', 'दादा/दादी']},
+  grandparent: {en: 'I am a grandparent', hi: 'मैं दादा/दादी या नाना/नानी हूँ', sub: ['My medicines, routine and Trusted People', 'मेरी दवाएँ, दिनचर्या और अपने लोग'], short: ['Grandparent', 'दादा/दादी']},
   caretaker: {en: 'I take care of someone', hi: 'मैं किसी की देखभाल करता/करती हूँ', sub: ['Family member or caregiver', 'परिवार का सदस्य या देखभालकर्ता'], short: ['Caretaker', 'देखभालकर्ता']},
   elderly_home: {en: 'We are an elderly home', hi: 'हम एक वृद्धाश्रम हैं', sub: ['Government-registered care home', 'सरकार में पंजीकृत वृद्धाश्रम'], short: ['Elderly home', 'वृद्धाश्रम']},
 };
@@ -137,7 +137,8 @@ bind = function() {
   document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => Backend.setLang(b.dataset.lang)));
 };
 
-Backend.start().then(async online => {
+window.backendReady = Backend.start();
+window.backendReady.then(async online => {
   render();
   if (!online) return;
   let skipped = false;

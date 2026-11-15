@@ -97,8 +97,8 @@ const tourSteps = () => [
   [t('Today','आज'), t('The Today page shows your medicines, daily routine, music, next appointment and a thought for the day.','आज वाले पेज पर आपकी दवाएँ, दिनचर्या, संगीत, अगली मुलाकात और आज का विचार दिखता है।')],
   [t('My medicines','मेरी दवाएँ'), t('When it is time for a medicine, take a photo as you take it. The photo saves your check-in.','दवा का समय होने पर, दवा लेते हुए एक फ़ोटो लें। फ़ोटो से आपका चेक-इन सहेजा जाता है।')],
   [t('Alarms','अलार्म'), t('Tap “Start reminders” when you open the app and keep it open. Your routine and appointment alarms will ring on time.','ऐप खोलते ही “रिमाइंडर शुरू करें” दबाएँ और ऐप खुला रखें। दिनचर्या और मुलाकात की घंटी समय पर बजेगी।')],
-  [t('Saathi and music','साथी और संगीत'), t('Talk to Saathi about anything. In Peace & music, Saathi asks a few easy questions and plays songs you love.','साथी से किसी भी बारे में बात करें। सुकून और संगीत में साथी कुछ आसान सवाल पूछकर आपके पसंदीदा गाने बजाता है।')],
-  [t('Your people','आपके अपने'), t('Keep photos, videos and voice notes of your loved ones in My loved ones. Invite family to your care circle.','मेरे अपने में अपनों की फ़ोटो, वीडियो और आवाज़ें रखें। परिवार को अपने देखभाल समूह में जोड़ें।')],
+  [t('Yaar and music','यार और संगीत'), t('Talk to Yaar about anything. In Peace & music, Yaar asks a few easy questions and plays songs you love.','यार से किसी भी बारे में बात करें। सुकून और संगीत में यार कुछ आसान सवाल पूछकर आपके पसंदीदा गाने बजाता है।')],
+  [t('Your people','आपके अपने'), t('Keep photos, videos and voice notes of your loved ones in My loved ones. Invite family to your Trusted People.','मेरे अपने में अपनों की फ़ोटो, वीडियो और आवाज़ें रखें। परिवार को अपने लोगों में जोड़ें।')],
   [t('Make it comfortable','अपनी सुविधा से'), t('Choose a bigger size, or turn on the narrator to hear the screen read aloud.','बड़ा आकार चुनें, या स्क्रीन को पढ़कर सुनाने के लिए नैरेटर चालू करें।'), true],
 ];
 let tourAt = 0;

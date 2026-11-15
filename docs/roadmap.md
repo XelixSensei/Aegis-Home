@@ -4,7 +4,7 @@ We are starting with a usable design, then adding the services that make it depe
 
 ## Step 1 · Find the right feel
 
-**Built:** the white-and-gold interface, English/Hindi switching, larger text, local medicine schedules, routines, appointments, music options, and a sample Saathi conversation.
+**Built:** the white-and-gold interface, English/Hindi switching, larger text, local medicine schedules, routines, appointments, music options, and a sample Yaar conversation.
 
 **Still to review:** the layout in a real browser, on a phone, with a keyboard, and with someone who is less comfortable using apps. Small labels and touch targets need particular attention before calling the app accessible.
 
@@ -25,13 +25,13 @@ The earlier architecture proposed Next.js, TypeScript, Firebase Auth, and Firest
 - Handle changes to prescriptions without rewriting past records.
 - Send emails for upcoming doses, unrecorded doses, and appointments.
 - Prevent duplicate emails and make failed deliveries visible.
-- Let a care-circle member follow up when needed. A dose that was not recorded is not proof it was missed.
+- Let a Trusted People member follow up when needed. A dose that was not recorded is not proof it was missed.
 
 Cloud Scheduler and an email provider were proposed for this stage. The provider has not been selected.
 
-## Step 4 · Give Saathi a real voice
+## Step 4 · Give Yaar a real voice
 
-- Connect a real AI service with clear disclosure that Saathi is AI.
+- Connect a real AI service with clear disclosure that Yaar is AI.
 - Support conversation in Hindi and English.
 - Keep medicine doses and treatment decisions with the person's clinician.
 - Decide what conversations, if any, are saved, and make that choice clear.
