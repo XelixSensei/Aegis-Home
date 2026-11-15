@@ -1,6 +1,6 @@
 {
   "name": "aegis-home",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "A calmer place for everyday care. English and Hindi.",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0"
   },
-  "aegisStep": "step-5",
+  "aegisStep": "step-6",
   "engines": {
     "node": ">=20"
   },

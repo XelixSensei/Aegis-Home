@@ -27,6 +27,9 @@ If you skip this, sign-up shows: "Sign-up is not finished on the server yet".
 
 The same SQL is tested automatically (`npm test`) against a real Postgres engine, with 38 checks of who can see what.
 
+### Step 6 update
+Also run [`supabase/migrations/0002_alerts.sql`](../supabase/migrations/0002_alerts.sql) the same way. It adds live location, "I'm safe now", live alerts, and a check every 10 minutes for medicines that were not checked in (Supabase Cron). It is safe to run more than once.
+
 ## 4. Connect the app
 1. **Project Settings → API**: copy the **Project URL** and the **anon public** key.
 2. In the project folder, copy `.env.example` to `.env` and fill in:

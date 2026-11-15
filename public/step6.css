@@ -1,0 +1,28 @@
+/* Step 6 additions. Existing palette and components only. */
+.help-buttons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.help-btn{min-height:96px;justify-content:flex-start;text-align:left;padding:16px 18px;gap:14px}
+.help-btn svg{width:30px;height:30px}
+.help-btn strong{display:block;font-size:19px}
+.help-btn small{display:block;font-size:14px;font-weight:500;margin-top:4px;opacity:.9}
+.help-active{border:2px solid #cbb477;background:#fffaf0;margin-bottom:24px}
+.help-active h3{margin-top:18px}
+.number-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.number-card{display:grid;gap:3px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:#fffefa;color:var(--ink);text-decoration:none;min-height:96px}
+.number-card:hover{background:var(--soft)}
+.number-card strong{font:700 28px/1.1 'DM Sans',sans-serif;color:#7a5718}
+.number-card span{font-weight:700}
+.number-card small{color:var(--muted);font-size:13px}
+.alerts-card{margin-bottom:24px;border-color:#e3d3ad}
+.alert-row,.today-med{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px 0;border-top:1px solid var(--border);flex-wrap:wrap}
+.alert-row .details,.today-med .details{flex:1;min-width:200px}
+.alert-row h3,.today-med h3{margin:0 0 4px}
+.alert-row p{margin:0 0 6px}
+.today-photo{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
+.profile-help{flex-wrap:wrap}
+#care-alert{width:560px;font-size:19px;line-height:1.6;border:2px solid #a27b34}
+#care-alert h2{font:700 26px 'DM Sans','Noto Sans Devanagari',sans-serif}
+#care-alert .alarm-kind{font-size:16px;color:#685322;font-weight:700}
+#care-alert .alarm-actions{margin-top:20px}
+#care-alert .btn{min-height:52px}
+@media(max-width:540px){.number-grid{grid-template-columns:1fr 1fr}.number-card strong{font-size:24px}.help-buttons{grid-template-columns:1fr}.alert-row .row-actions,.today-med .row-actions{width:100%}#care-alert{padding:22px}}
+.help-share{display:flex;margin-top:14px}

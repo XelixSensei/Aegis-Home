@@ -137,7 +137,8 @@ bind = function() {
   document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => Backend.setLang(b.dataset.lang)));
 };
 
-Backend.start().then(async online => {
+window.backendReady = Backend.start();
+window.backendReady.then(async online => {
   render();
   if (!online) return;
   let skipped = false;

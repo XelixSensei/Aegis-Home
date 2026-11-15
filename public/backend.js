@@ -156,8 +156,80 @@ const Backend = (() => {
     if (paths.length) await client.storage.from('loved-ones').remove(paths);
   }
 
+  /* ---------- Step 6: shared medicines and check-in photos ---------- */
+  /* Mirrors the grandparent's medicine list online so the care circle and the missed-dose check can see it. */
+  async function syncMedicines(meds) {
+    const rows = meds.map(m => ({id: m.remoteId, elder_id: profile.id, name: m.name, dose: m.dose || null, note: m.note || null, time_ist: m.time, active: true}));
+    if (rows.length) {
+      const {error} = await client.from('medicines').upsert(rows);
+      if (error) throw fail('sync_failed', error);
+    }
+    const keep = rows.map(r => r.id);
+    let stale = client.from('medicines').update({active: false}).eq('elder_id', profile.id).eq('active', true);
+    if (keep.length) stale = stale.not('id', 'in', `(${keep.join(',')})`);
+    const {error} = await stale;
+    if (error) throw fail('sync_failed', error);
+  }
+  async function shareCheckin({medicineId, day, blob}) {
+    const path = `${profile.id}/${day}/${medicineId}.jpg`;
+    const up = await client.storage.from('checkins').upload(path, blob, {contentType: 'image/jpeg', upsert: true});
+    if (up.error) throw fail('upload_failed', up.error);
+    const {error} = await client.from('dose_checkins').upsert({elder_id: profile.id, medicine_id: medicineId, day, photo_path: path}, {onConflict: 'medicine_id,day'});
+    if (error) throw fail('save_failed', error);
+  }
+  async function unshareCheckin({medicineId, day}) {
+    await client.from('dose_checkins').delete().eq('elder_id', profile.id).eq('medicine_id', medicineId).eq('day', day);
+    await client.storage.from('checkins').remove([`${profile.id}/${day}/${medicineId}.jpg`]);
+  }
+  /* What a caretaker sees for one elder today: medicines, check-ins with photos, and recent alerts. */
+  async function elderToday(elderId, day) {
+    const [meds, checks, alerts] = await Promise.all([
+      client.from('medicines').select('id, name, dose, time_ist').eq('elder_id', elderId).eq('active', true).order('time_ist'),
+      client.from('dose_checkins').select('medicine_id, photo_path, taken_at').eq('elder_id', elderId).eq('day', day),
+      client.from('alerts').select('*').eq('elder_id', elderId).order('created_at', {ascending: false}).limit(10),
+    ]);
+    const error = meds.error || checks.error || alerts.error;
+    if (error) throw fail('load_failed', error);
+    const paths = checks.data.map(c => c.photo_path);
+    const urls = {};
+    if (paths.length) {
+      const signed = await client.storage.from('checkins').createSignedUrls(paths, 3600);
+      for (const s of signed.data || []) if (s.signedUrl) urls[s.path] = s.signedUrl;
+    }
+    const byMed = Object.fromEntries(checks.data.map(c => [c.medicine_id, {...c, photo: urls[c.photo_path] || null}]));
+    return {medicines: meds.data.map(m => ({...m, checkin: byMed[m.id] || null})), alerts: alerts.data};
+  }
+
+  /* ---------- Step 6: alerts ---------- */
+  const raiseAlert = (kind, lat = null, lng = null, message = null) => rpc('raise_alert', {alert_kind: kind, alert_lat: lat, alert_lng: lng, alert_message: message});
+  const updateAlertLocation = (id, lat, lng) => rpc('update_alert_location', {alert_id: id, p_lat: lat, p_lng: lng});
+  const resolveAlert = id => rpc('resolve_alert', {alert_id: id});
+  const acknowledgeAlert = id => rpc('acknowledge_alert', {alert: id});
+  const nearestHomes = (lat, lng) => rpc('nearest_homes', {p_lat: lat, p_lng: lng, max_results: 5});
+  async function alerts({openOnly = false, limit = 20} = {}) {
+    let query = client.from('alerts').select('*, elder:profiles!alerts_elder_id_fkey(id, full_name, phone)').order('created_at', {ascending: false}).limit(limit);
+    if (openOnly) query = query.neq('status', 'resolved');
+    const {data, error} = await query;
+    if (error) throw fail('load_failed', error);
+    return data;
+  }
+  async function getAlert(id) {
+    const {data, error} = await client.from('alerts').select('*, elder:profiles!alerts_elder_id_fkey(id, full_name, phone)').eq('id', id).maybeSingle();
+    if (error) throw fail('load_failed', error);
+    return data;
+  }
+  /* Live updates for new and changed alerts. Row Level Security decides what arrives. */
+  function watchAlerts(onChange) {
+    const channel = client.channel('aegis-alerts')
+      .on('postgres_changes', {event: '*', schema: 'public', table: 'alerts'}, payload => onChange(payload.new, payload.eventType))
+      .subscribe();
+    return () => client.removeChannel(channel);
+  }
+
   return {
     start, signUp, signIn, signOut, createProfile, setLang,
+    syncMedicines, shareCheckin, unshareCheckin, elderToday,
+    raiseAlert, updateAlertLocation, resolveAlert, acknowledgeAlert, nearestHomes, alerts, getAlert, watchAlerts,
     careLinks, createInvite, acceptInvite, removeLink, setPermission,
     loved: {list: lovedList, add: lovedAdd, addVoice: lovedAddVoice, remove: lovedRemove},
     available: () => Boolean(client),
