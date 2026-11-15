@@ -10,8 +10,11 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
 - Work step by step on branches. **Show a preview (screenshots + preview file) and get approval before pushing or merging** each step.
 
 ## Stack and layout
-- Front end: plain HTML/CSS/JS with no build step. Back end: small Node endpoints in `api/` (Vercel functions), reused by `scripts/serve.cjs` locally. The only dependency is `@anthropic-ai/sdk`.
-- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css` and `step4.css`.
+- Front end: plain HTML/CSS/JS with no build step. Back end:
+  - small Node endpoints in `api/` (Vercel functions), reused by `scripts/serve.cjs` locally
+  - **Supabase** for accounts and shared data (see `docs/supabase-setup.md`)
+- Dependencies: `@anthropic-ai/sdk`. Dev: `@electric-sql/pglite`. Browser: `@supabase/supabase-js@2.118.0` from jsdelivr.
+- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js` → supabase-js (CDN) → `phone.js` → `backend.js` → `step5.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css` and `step4.css`.
 - `app.js`: the core UI. It has a global `state`, page renderers, `render()`, `bind()`, `actions`, `modal()`, `toast()` and `save()`. Lines are very long and minified-style. The page map inside `render()` is fixed: home, meds, routine, appointments, music, chat, care, settings. A new page means changing `render()` and the `navs` list.
 - Pure logic in UMD form, so it runs in the browser and in Node tests:
   - `dose-ledger.js`: medicine status
@@ -24,7 +27,16 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
   - `server/saathi.cjs`: system prompt and input cleaning
   - `server/music.cjs`: YouTube Data API, or Claude `web_search_20260209` as a fallback
   - `server/http.cjs`: JSON parsing, rate limiting and errors
-- Keys go in `.env`, which is git-ignored (see `.env.example`): `ANTHROPIC_API_KEY` and `YOUTUBE_API_KEY`. Both are optional; without them the app falls back to offline Saathi and YouTube links.
+- **Supabase:**
+  - Schema and RLS live in `supabase/migrations/0001_core.sql`; `tests/supabase-rls.test.mjs` runs it in PGlite with an auth/storage stub (38 checks).
+  - Login is the WhatsApp number + a 6-digit passcode. There is no OTP (Xelix's choice): it is email/password auth on `<91number>@phone.aegishome.app`, with "Confirm email" off.
+  - The `profiles` insert policy checks that the phone matches the login address.
+  - Roles: `grandparent`, `caretaker`, `elderly_home`.
+  - Care circle: `create_invite()` gives a 6-digit code (24 hours, 5 tries), redeemed with `accept_invite(phone, code)`.
+  - Homes are `pending` until an admin approves them. `raise_alert('abandoned', lat, lng)` sends to approved homes within their radius (`nearest_homes`).
+  - Storage buckets: `checkins`, `licences`, `loved-ones`, with paths `<elder id>/...`.
+  - `public/backend.js` is the only browser file that talks to Supabase. `/api/config` serves the URL and anon key; `/api/keepalive` runs on a daily Vercel cron.
+- Keys go in `.env`, which is git-ignored (see `.env.example`): `ANTHROPIC_API_KEY`, `YOUTUBE_API_KEY`, `SUPABASE_URL` and `SUPABASE_ANON_KEY`. Both are optional; without them the app falls back to offline Saathi and YouTube links.
 
 ## Conventions
 - **Extending functions:** later files wrap earlier functions instead of editing them, e.g. `const bindBeforeStep4 = bind; bind = function(){ bindBeforeStep4(); ... }`. New steps get a new `stepN.js` and `stepN.css`.
@@ -38,7 +50,7 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
 ```sh
 npm install
 npm start                    # http://127.0.0.1:4174 (reads .env)
-npm test                     # node:test, tests/*.test.cjs (25 tests)
+npm test                     # node:test, tests/*.test.cjs + *.test.mjs (30 tests, including Supabase RLS)
 npm run check                # syntax check of every JS file
 npm run build:preview        # writes previews/<aegisStep>.html (aegisStep is set in package.json)
 ```
@@ -59,7 +71,8 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 - [ ] Quote box (EN/HI by preference, simple words, occasional sarcasm, never repeating): educates against religious discrimination, about the reality of beliefs without attacking faith, on littering and civic sense, and other things elders should know
 - [ ] UI enhancement, not a redesign: thicker and more readable font, bigger text and buttons, 3 size levels for text and UI
 - [ ] Better phone layout, plus phone screenshots
-- [ ] Login types: Grandparent / Caretaker / Elderly Home, using WhatsApp phone numbers. Elderly Home login needs government licence verification.
+- [x] Login types: Grandparent / Caretaker / Elderly Home, using WhatsApp number + passcode, via Supabase (branch `step-5`; needs Xelix's Supabase project and keys to try live). Elderly Home: licence number, certificate upload and location; admin approval.
+- [ ] Care circle UI (create and accept invite codes); the backend functions are ready
 - [ ] Narrator: reads aloud whatever the finger touches or hovers over, for blind users
 - [ ] Short tutorial on first use
 - [ ] Loved ones section: name or nickname, photo, video, voice notes
@@ -75,6 +88,12 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 
 ## Change log
 Newest first.
+
+- **2026-11-15 (Step 5, accounts)**: Branch `step-5`, built on `step-4`, v0.5.0.
+  - Added Supabase: migration, RLS test in PGlite, `phone.js`, `backend.js`, `step5.js` and `step5.css` (account modal, Settings account card, clickable top-bar chip; avatar-only on phones).
+  - Added `api/config.js`, `api/keepalive.js`, `server/supabase.cjs` and `vercel.json` (output `public`, daily cron), and `docs/supabase-setup.md`.
+  - The preview builder keeps https scripts as links.
+  - Not yet run against a real Supabase project.
 
 - **2026-11-15 (Step 4)**: Branch `step-4`, v0.4.0.
   - Added `api/` + `server/` endpoints: `/api/saathi`, `/api/music`, `/api/health`.
