@@ -1,0 +1,95 @@
+/* Step 5 additions (accounts). Existing palette and components only. */
+.profile[role=button]{cursor:pointer;border-radius:10px;padding:4px 6px}
+.profile[role=button]:hover{background:var(--soft)}
+.profile[role=button]:focus-visible{outline:3px solid #86601f;outline-offset:3px}
+#modal .guide-options{grid-template-columns:1fr}
+#modal .guide-options .btn{min-height:64px;padding:12px 16px}
+#modal .guide-options strong{font-size:16px}
+#modal .guide-options small{color:var(--muted);font-size:13px}
+#modal input[type=file]{padding:10px 0}
+#account-form .settings-row{gap:12px;flex-wrap:wrap}
+/* Phones hide the account chip and Settings; keep just the round avatar so the account stays reachable. */
+@media(max-width:540px){.profile[role=button]{display:flex;padding:0}.profile[role=button] span{display:none}.profile[role=button] .avatar{width:34px;height:34px}.topbar:before{white-space:nowrap}.top-actions{gap:5px}}
+.account-card .settings-row{border-bottom:0;padding:0}
+
+/* ---------- Readability for older eyes: a little heavier, a little bigger, higher contrast ---------- */
+body{font-weight:500;-webkit-font-smoothing:antialiased}
+.muted{color:#5c5547;font-size:15px}
+.btn{font-size:15px;font-weight:600;min-height:48px}
+.btn.small{font-size:13px;min-height:42px}
+.text-btn{font-size:14px;font-weight:600;min-height:44px}
+nav button{font-size:16px}
+label{font-size:15px;font-weight:600}
+input,select,textarea{font-size:16px}
+.med h3,.routine-row strong,.appointment h3,.chat-card h3{font-size:16px}
+.med p,.routine-row small,.appointment p,.chat-card p,.card-foot,.progress-line{font-size:13px}
+.eyebrow{font-size:11px;font-weight:700}
+.notice{font-size:14px;color:#5e4a26}
+.breadcrumb,.help-card{font-size:14px}
+
+/* ---------- Three sizes (Standard / Large / Extra large) ---------- */
+.large .btn{min-height:54px;font-size:17px}
+.large .btn.small{min-height:46px;font-size:15px}
+.large label,.large input,.large select{font-size:18px}
+.large .med p,.large .routine-row small,.large .appointment p{font-size:15px}
+.xlarge{font-size:21px}
+.xlarge .muted,.xlarge .notice,.xlarge .med p,.xlarge .routine-row small,.xlarge .appointment p,.xlarge .chat-card p,.xlarge .progress-line{font-size:18px}
+.xlarge .btn,.xlarge .text-btn{min-height:60px;font-size:19px}
+.xlarge .btn.small{min-height:52px;font-size:17px}
+.xlarge h1{font-size:42px}.xlarge h2,.xlarge .card-head h2{font-size:30px}.xlarge h3,.xlarge .med h3,.xlarge .routine-row strong,.xlarge .appointment h3{font-size:20px}
+.xlarge label,.xlarge input,.xlarge select{font-size:20px}
+.xlarge nav button{font-size:18px}
+.xlarge .quote-text{font-size:28px}
+.xlarge .message{font-size:19px}
+.xlarge .eyebrow{font-size:13px}
+@media(max-width:540px){.xlarge nav button{font-size:13px}.xlarge h1{font-size:34px}}
+.size-choice button{min-width:52px;font-weight:700}
+.size-choice button:nth-child(2){font-size:16px}.size-choice button:nth-child(3){font-size:19px}
+
+/* ---------- Phones: every page reachable, bigger touch targets ---------- */
+@media(max-width:540px){
+  .sidebar{height:78px}
+  nav{overflow-x:auto;justify-content:flex-start;scrollbar-width:none;padding:0 4px}
+  nav::-webkit-scrollbar{display:none}
+  nav button,nav button[data-page=settings],nav button[data-page=care]{display:flex;flex:0 0 auto;min-width:76px;font-size:12px;min-height:66px}
+  .workspace{padding-bottom:84px}
+  .btn{min-height:50px}
+  .row-actions .btn{flex:1 1 auto}
+  .member{flex-wrap:wrap}
+  .member .row-actions{width:100%}
+}
+
+/* ---------- Thought for the day ---------- */
+.quote-card{margin-top:24px;border-color:#e3d3ad;background:linear-gradient(110deg,#fffaf0,#fffefa)}
+.quote-card .eyebrow{display:flex;align-items:center;gap:8px}
+.quote-card .eyebrow svg{width:18px;height:18px}
+.quote-text{font:500 21px/1.6 'Playfair Display','Noto Sans Devanagari',serif;margin:12px 0 16px;color:var(--ink)}
+.large .quote-text{font-size:24px}
+
+/* ---------- Tour ---------- */
+.tour-text{font-size:18px;line-height:1.7}
+.tour-count{margin:14px 0 0}
+.tour-actions{flex-wrap:wrap}
+
+/* ---------- Loved ones ---------- */
+.loved-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.loved-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 12px;text-align:center;color:var(--ink)}
+.loved-card:hover{background:var(--soft)}
+.loved-card strong{font-size:18px}
+.loved-card small{color:var(--muted);font-size:14px}
+.loved-photo{width:110px;height:110px;border-radius:50%;overflow:hidden;background:#f0e5cc;display:grid;place-items:center;border:3px solid #e2d4b8;font:36px 'Playfair Display',serif;color:#80632d;margin-bottom:6px}
+.loved-photo.big{width:160px;height:160px;margin:0 auto 12px}
+.loved-photo img{width:100%;height:100%;object-fit:cover}
+.loved-detail{display:grid;gap:14px;text-align:center}
+.loved-big{width:100%;max-height:360px;object-fit:cover;border-radius:12px}
+.loved-detail video{width:100%;border-radius:12px;background:var(--ink)}
+.voice-row{display:grid;gap:6px;text-align:left}
+.voice-row audio{width:100%}
+
+/* ---------- Care circle ---------- */
+.member .details{flex:1;min-width:160px}
+.member .avatar{font-size:18px}
+.invite-code{margin-top:18px;padding:18px;border:1px dashed #cbb477;border-radius:12px;background:#fffaf0;display:grid;gap:10px;justify-items:start}
+.invite-code strong{font:700 36px/1.2 'DM Sans',sans-serif;letter-spacing:6px;color:#6b4d16}
+.btn.danger{color:#9a4039}
+.account-card .btn{white-space:nowrap}

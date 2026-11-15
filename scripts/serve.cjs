@@ -21,6 +21,8 @@ const api = {
   '/api/saathi': require('../api/saathi.js'),
   '/api/music': require('../api/music.js'),
   '/api/health': require('../api/health.js'),
+  '/api/config': require('../api/config.js'),
+  '/api/keepalive': require('../api/keepalive.js'),
 };
 
 function securityHeaders(response) {
@@ -58,5 +60,6 @@ http.createServer((request, response) => {
   const ai = process.env.ANTHROPIC_API_KEY ? 'on' : 'off (offline Saathi)';
   const yt = process.env.YOUTUBE_API_KEY ? 'YouTube API' : process.env.ANTHROPIC_API_KEY ? 'AI web search' : 'off (YouTube links)';
   console.log(`Aegis Home is ready at http://${host === '0.0.0.0' ? 'localhost' : host}:${port}`);
-  console.log(`Live Saathi: ${ai} · Music search: ${yt}`);
+  const accounts = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? 'on' : 'off (device only)';
+  console.log(`Live Saathi: ${ai} · Music search: ${yt} · Accounts: ${accounts}`);
 });
