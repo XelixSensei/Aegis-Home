@@ -89,6 +89,8 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 ## Change log
 Newest first.
 
+- **2026-11-15 (README)**: Branch `readme`. Rewrote `README.md` as the full-project overview: why, who it's for, features, phone screenshots, Step 6 plans, architecture, privacy/security, setup, tests, structure, checkpoints and honest limits. Also wrote a ~100-word LinkedIn description (given in chat, not stored in the repo).
+
 - **2026-11-15 (Step 5 complete)**: v0.5.0.
   - Added `quotes.js`, `step5-extras.js` (thought card, sizes, narrator, tour) and `step5-people.js` (care circle screens, loved ones).
   - `backend.js` gained care-circle and loved-ones calls.
