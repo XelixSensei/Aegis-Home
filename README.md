@@ -1,3 +1,7 @@
+# Step 2 — in progress
+
+The first slice adds daily medicine photo check-ins. [What works and what comes next](docs/step-2.md). Photos stay on this device; sharing and automatic alerts are not connected yet.
+
 <div align="center">
 
 ![Aegis Home — A little care. A little comfort. Every day.](docs/banner.svg)
