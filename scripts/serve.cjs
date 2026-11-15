@@ -3,8 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '../public');
-const port = Number(process.env.PORT || 4173);
+const port = Number(process.env.PORT || 4174);
 const routes = {
+  '/medicines.css': ['medicines.css', 'text/css'],
+  '/dose-ledger.js': ['dose-ledger.js', 'text/javascript'],
+  '/medicines.js': ['medicines.js', 'text/javascript'],
   '/': ['index.html', 'text/html'],
   '/index.html': ['index.html', 'text/html'],
   '/app.js': ['app.js', 'text/javascript'],
