@@ -78,7 +78,7 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
   - [x] First-use tour (7 steps; size and narrator choices on the last step)
   - [x] Loved ones: name/nickname, photo, video, voice notes; Supabase for a signed-in grandparent, IndexedDB otherwise
 
-- [x] Step 6 (branch `step-6`, PR #7):
+- [x] Step 6 (PR #7, merged 2026-11-15):
   - [x] WhatsApp: prefilled `wa.me` messages with map links (to caretakers, to anyone, check-in photo via Web Share). Not auto-sent; that would need the WhatsApp Business API.
   - [x] Live location: `update_alert_location` every 30 s while an alert is open and the app is open
   - [x] Today's medicines: meds mirrored to Supabase (`m.remoteId`); check-in photos uploaded to `checkins/<uid>/<day>/<medId>.jpg`; caretakers see "Today's care" with photos
@@ -92,6 +92,8 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 
 ## Change log
 Newest first.
+
+- **2026-11-15 (final README)**: Step 6 + rename merged as PR #7. Branch `readme-final`: README rewritten for the finished project (problem, features, roles, screens, details, architecture, privacy, setup, tests, structure, steps, limits, next), using the new names Yaar and Trusted People. New README screenshots: `docs/screens/final-*.png`.
 
 - **2026-11-15 (rename)**: Branch `step-6`.
   - On every screen and in README/docs: "care circle" → **Trusted People** (Hindi "देखभाल समूह/साथी" → **अपने लोग**, with grammar fitted), and "Saathi" → **Yaar** (Hindi साथी → यार; "AI साथी" meaning companion is kept).
