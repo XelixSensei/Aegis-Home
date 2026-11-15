@@ -14,7 +14,7 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
   - small Node endpoints in `api/` (Vercel functions), reused by `scripts/serve.cjs` locally
   - **Supabase** for accounts and shared data (see `docs/supabase-setup.md`)
 - Dependencies: `@anthropic-ai/sdk`. Dev: `@electric-sql/pglite`. Browser: `@supabase/supabase-js@2.118.0` from jsdelivr.
-- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js` → supabase-js (CDN) → `phone.js` → `backend.js` → `step5.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css` and `step4.css`.
+- `public/index.html` loads its scripts in this order: `app.js` → `dose-ledger.js` → `medicines.js` → `alarm-clock.js` → `alarms.js` → `saathi-local.js` → `music-guide.js` → `step4.js` → supabase-js (CDN) → `phone.js` → `backend.js` → `step5.js` → `quotes.js` → `step5-extras.js` → `step5-people.js`. The CSS files are `style.css`, `medicines.css`, `alarms.css` and `step4.css`.
 - `app.js`: the core UI. It has a global `state`, page renderers, `render()`, `bind()`, `actions`, `modal()`, `toast()` and `save()`. Lines are very long and minified-style. The page map inside `render()` is fixed: home, meds, routine, appointments, music, chat, care, settings. A new page means changing `render()` and the `navs` list.
 - Pure logic in UMD form, so it runs in the browser and in Node tests:
   - `dose-ledger.js`: medicine status
@@ -50,7 +50,7 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
 ```sh
 npm install
 npm start                    # http://127.0.0.1:4174 (reads .env)
-npm test                     # node:test, tests/*.test.cjs + *.test.mjs (30 tests, including Supabase RLS)
+npm test                     # node:test, tests/*.test.cjs + *.test.mjs (35 tests, including Supabase RLS)
 npm run check                # syntax check of every JS file
 npm run build:preview        # writes previews/<aegisStep>.html (aegisStep is set in package.json)
 ```
@@ -65,19 +65,19 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 - [x] Step 1: white-and-gold UI, EN/HI, larger text, local medicines, routines, appointments, music links, sample Saathi (PR #1)
 - [x] Step 2: daily medicine photo check-ins in IST, stored locally (PR #2)
 - [x] Step 3: on-device routine and appointment alarms with chime, snooze and acknowledge (PR #3)
-- [x] Step 4 (branch `step-4`, **awaiting Xelix's approval**): Saathi works with normal chatting (live AI or offline); Peace & music guided picker (singer → type → faith or style → plays an in-app YouTube embed); appointment alarms 1 day, 1 hour or 15 minutes before and at the time
+- [x] Step 4 (PR #4, merged to main on 2026-11-15): Saathi works with normal chatting (live AI or offline); Peace & music guided picker (singer → type → faith or style → plays an in-app YouTube embed); appointment alarms 1 day, 1 hour or 15 minutes before and at the time
 
-**Step 5** (next)
-- [ ] Quote box (EN/HI by preference, simple words, occasional sarcasm, never repeating): educates against religious discrimination, about the reality of beliefs without attacking faith, on littering and civic sense, and other things elders should know
-- [ ] UI enhancement, not a redesign: thicker and more readable font, bigger text and buttons, 3 size levels for text and UI
-- [ ] Better phone layout, plus phone screenshots
-- [x] Login types: Grandparent / Caretaker / Elderly Home, using WhatsApp number + passcode, via Supabase (branch `step-5`; needs Xelix's Supabase project and keys to try live). Elderly Home: licence number, certificate upload and location; admin approval.
-- [ ] Care circle UI (create and accept invite codes); the backend functions are ready
-- [ ] Narrator: reads aloud whatever the finger touches or hovers over, for blind users
-- [ ] Short tutorial on first use
-- [ ] Loved ones section: name or nickname, photo, video, voice notes
+- [x] Step 5 (PR #5): everything below
+  - [x] Quote box: 60 EN/HI thoughts (`public/quotes.js`); a shuffled deck that never repeats until all are shown
+  - [x] Readability: heavier and larger text; 3 sizes (`state.textSize` 0/1/2 → `.large` / `.xlarge`)
+  - [x] Phone layout: a scrollable bottom bar with every page
+  - [x] Login types: Grandparent / Caretaker / Elderly Home (WhatsApp number + passcode, Supabase); Elderly Home certificate, location and admin approval
+  - [x] Care circle screens: invite codes, join, permissions, remove/leave, Call/WhatsApp
+  - [x] Narrator: touch, slide or hover to hear; tap twice on touch screens
+  - [x] First-use tour (7 steps; size and narrator choices on the last step)
+  - [x] Loved ones: name/nickname, photo, video, voice notes; Supabase for a signed-in grandparent, IndexedDB otherwise
 
-**Step 6**
+**Step 6** (next)
 - [ ] WhatsApp: emergency messages, medicine photo sharing to the care circle, live location
 - [ ] Today's medicines: recording a photo marks a dose taken; the care circle can see the photos; alert the care circle when no meds are taken
 - [ ] Profile buttons: "I've been abandoned" alert to the nearest verified elderly homes (with location), and a caretaker emergency alert
@@ -89,11 +89,22 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 ## Change log
 Newest first.
 
+- **2026-11-15 (Step 5 complete)**: v0.5.0.
+  - Added `quotes.js`, `step5-extras.js` (thought card, sizes, narrator, tour) and `step5-people.js` (care circle screens, loved ones).
+  - `backend.js` gained care-circle and loved-ones calls.
+  - `app.js`: `render()` now falls back to `window.extraPages[page]`, so later steps can add pages. Navs: `loved` added before `care`.
+  - 35 tests pass. The live end-to-end run through the app passed: invite → join → each sees the other → loved one with photo and voice note online → clean-up.
+  - More leftover test accounts: +917000266057 (grandparent) and +917000391116 (caretaker).
+  - Docs: `docs/step-5.md`; screenshots: `docs/screens/step-5-*`; preview: `previews/step-5.html`.
+  - Headless-screenshot and end-to-end scripts are kept in `%TEMP%/aegis-shots/`.
+
 - **2026-11-15 (Step 5, accounts)**: Branch `step-5`, built on `step-4`, v0.5.0.
   - Added Supabase: migration, RLS test in PGlite, `phone.js`, `backend.js`, `step5.js` and `step5.css` (account modal, Settings account card, clickable top-bar chip; avatar-only on phones).
   - Added `api/config.js`, `api/keepalive.js`, `server/supabase.cjs` and `vercel.json` (output `public`, daily cron), and `docs/supabase-setup.md`.
   - The preview builder keeps https scripts as links.
-  - Not yet run against a real Supabase project.
+  - **Live:** Xelix's project `bnlpebcrhaludtrxvbdf` (Mumbai) has the migration applied and "Confirm email" off. The keys are in the local `.env` (git-ignored).
+  - A live end-to-end check passed 16/16 (sign-up, sign-in, wrong passcode, invite, privacy rules).
+  - Leftover test accounts: +917000061372 (grandparent) and +917000174879 (caretaker). Delete them in Authentication → Users when no longer needed.
 
 - **2026-11-15 (Step 4)**: Branch `step-4`, v0.4.0.
   - Added `api/` + `server/` endpoints: `/api/saathi`, `/api/music`, `/api/health`.

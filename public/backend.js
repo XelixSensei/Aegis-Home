@@ -86,8 +86,80 @@ const Backend = (() => {
     if (!error) profile = {...profile, lang};
   }
 
+  /* ---------- Care circle ---------- */
+  async function careLinks() {
+    const {data, error} = await client.from('care_links')
+      .select('id, permission, accepted_at, expires_at, elder:profiles!care_links_elder_id_fkey(id, full_name, phone), caretaker:profiles!care_links_caretaker_id_fkey(id, full_name, phone)')
+      .not('accepted_at', 'is', null).order('accepted_at');
+    if (error) throw fail('load_failed', error);
+    return data;
+  }
+  async function rpc(name, args) {
+    const {data, error} = await client.rpc(name, args);
+    if (error) throw fail(name + '_failed', error);
+    return data;
+  }
+  const createInvite = perm => rpc('create_invite', {perm});
+  async function acceptInvite(phone, code) {
+    const number = Phone.normalize(phone);
+    if (!number) throw fail('bad_phone');
+    if (!/^\d{6}$/.test(String(code))) throw fail('bad_code');
+    if (!await rpc('accept_invite', {elder_phone: number, code: String(code)})) throw fail('wrong_code');
+  }
+  async function removeLink(id) {
+    const {error} = await client.from('care_links').delete().eq('id', id);
+    if (error) throw fail('remove_failed', error);
+  }
+  const setPermission = (link, perm) => rpc('set_link_permission', {link, perm});
+
+  /* ---------- Loved ones (shared with the care circle) ---------- */
+  const baseType = blob => String(blob.type || '').split(';')[0];
+  async function upload(path, blob) {
+    const {error} = await client.storage.from('loved-ones').upload(path, blob, {contentType: baseType(blob), upsert: false});
+    if (error) throw fail('upload_failed', error);
+    return path;
+  }
+  const extOf = blob => ({'image/png': 'png', 'image/webp': 'webp', 'video/webm': 'webm', 'video/mp4': 'mp4', 'audio/webm': 'webm', 'audio/ogg': 'ogg', 'audio/mp4': 'm4a', 'audio/mpeg': 'mp3'})[baseType(blob)] || 'jpg';
+  async function lovedList() {
+    const {data, error} = await client.from('loved_ones').select('*').eq('elder_id', profile.id).order('created_at');
+    if (error) throw fail('load_failed', error);
+    const paths = data.flatMap(p => [p.photo_path, p.video_path, ...p.voice_paths]).filter(Boolean);
+    const urls = {};
+    if (paths.length) {
+      const signed = await client.storage.from('loved-ones').createSignedUrls(paths, 3600);
+      for (const s of signed.data || []) if (s.signedUrl) urls[s.path] = s.signedUrl;
+    }
+    return data.map(p => ({id: p.id, name: p.name, relation: p.relation || '', photo: urls[p.photo_path] || null,
+      video: urls[p.video_path] || null, voices: p.voice_paths.map(v => urls[v]).filter(Boolean)}));
+  }
+  async function lovedAdd({name, relation, photo, video, voices = []}) {
+    const id = crypto.randomUUID(), base = `${profile.id}/${id}`;
+    const row = {id, elder_id: profile.id, name, relation: relation || null, voice_paths: []};
+    if (photo) row.photo_path = await upload(`${base}/photo.${extOf(photo)}`, photo);
+    if (video) row.video_path = await upload(`${base}/video.${extOf(video)}`, video);
+    for (const [i, v] of voices.entries()) row.voice_paths.push(await upload(`${base}/voice-${Date.now()}-${i}.${extOf(v)}`, v));
+    const {error} = await client.from('loved_ones').insert(row);
+    if (error) throw fail('save_failed', error);
+  }
+  async function lovedAddVoice(id, blob) {
+    const {data, error} = await client.from('loved_ones').select('voice_paths').eq('id', id).single();
+    if (error) throw fail('load_failed', error);
+    const path = await upload(`${profile.id}/${id}/voice-${Date.now()}.${extOf(blob)}`, blob);
+    const result = await client.from('loved_ones').update({voice_paths: [...data.voice_paths, path]}).eq('id', id);
+    if (result.error) throw fail('save_failed', result.error);
+  }
+  async function lovedRemove(id) {
+    const {data} = await client.from('loved_ones').select('*').eq('id', id).single();
+    const {error} = await client.from('loved_ones').delete().eq('id', id);
+    if (error) throw fail('remove_failed', error);
+    const paths = data ? [data.photo_path, data.video_path, ...data.voice_paths].filter(Boolean) : [];
+    if (paths.length) await client.storage.from('loved-ones').remove(paths);
+  }
+
   return {
     start, signUp, signIn, signOut, createProfile, setLang,
+    careLinks, createInvite, acceptInvite, removeLink, setPermission,
+    loved: {list: lovedList, add: lovedAdd, addVoice: lovedAddVoice, remove: lovedRemove},
     available: () => Boolean(client),
     signedIn: async () => Boolean(client && (await client.auth.getSession()).data.session),
     profile: () => profile,

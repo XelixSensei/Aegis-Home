@@ -6,7 +6,7 @@
 
 Medicines, daily routines, familiar music, and a little company — in English and Hindi.
 
-[Try the latest preview](previews/step-4.html) · [Build notes](docs/step-4.md) · [The challenge](docs/challenge.md)
+[Try the latest preview](previews/step-5.html) · [Build notes](docs/step-5.md) · [The challenge](docs/challenge.md)
 
 </div>
 
@@ -23,6 +23,11 @@ Aegis Home is being built for older people in India and the people who care abou
 | Appointments | Save or edit a visit; alarms ring 1 day, 1 hour or 15 minutes before, and at the time. |
 | Alarms | Try the chime, acknowledge a reminder, or snooze for five minutes. Times use IST. |
 | English and Hindi | Switch language without leaving the page. |
+| Accounts | Grandparent, Caretaker or verified Elderly Home. Sign in with a WhatsApp number and a 6-digit passcode. |
+| Care circle | A grandparent shares a 6-digit code; family joins and can call or WhatsApp in one tap. |
+| Loved ones | Photos, videos and voice notes of the people you love, by name or nickname. |
+| A thought for today | 60 simple thoughts in English and Hindi on harmony, beliefs, clean streets, scams and kindness. Never repeats until all are shown. |
+| Comfort | Three text and button sizes, a touch narrator that reads the screen aloud, and a one-minute tour. |
 | Peace and music | Saathi asks a few easy questions (singer, type of music, faith) and plays songs inside the app. Or play your own audio, or take a quiet minute. |
 | Saathi | Chat about anything in English, Hindi or Hinglish. Live AI with a key; a simpler offline Saathi without one. Emergency words show 112/108 call buttons. |
 
@@ -32,7 +37,7 @@ Aegis Home is being built for older people in India and the people who care abou
 
 ## Open the preview
 
-Open [previews/step-4.html](previews/step-4.html), choose **Download raw file**, and open it in Chrome or Edge. GitHub shows the code until you download it.
+Open [previews/step-5.html](previews/step-5.html), choose **Download raw file**, and open it in Chrome or Edge. GitHub shows the code until you download it.
 
 For local development and camera access:
 
@@ -60,6 +65,7 @@ npm run build:preview   # Rebuild the latest downloadable preview
 | [Step 2](previews/step-2.html) | Daily medicine photo check-ins | [Photo storage](docs/step-2.md) |
 | [Step 3](previews/step-3.html) | Routine and appointment alarms | [Reminder notes](docs/step-3.md) |
 | [Step 4](previews/step-4.html) | Saathi chat, guided music, early appointment alarms | [Step 4 notes](docs/step-4.md) |
+| [Step 5](previews/step-5.html) | Accounts, care circle, loved ones, thoughts, sizes, narrator, tour | [Step 5 notes](docs/step-5.md) · [Supabase setup](docs/supabase-setup.md) |
 
 Each reviewed step has its own branch and is merged through a separate pull request.
 
@@ -76,7 +82,7 @@ Each reviewed step has its own branch and is merged through a separate pull requ
 
 ## Still ahead
 
-Sign-in for grandparents, caretakers and elderly homes; care circles; WhatsApp alerts; emergency help; loved-ones section; and accessibility improvements. The [roadmap](docs/roadmap.md) records the wider plan.
+WhatsApp alerts and live location, medicine photos shared with the care circle, abandonment and caretaker alerts, and an emergency services section. The [roadmap](docs/roadmap.md) records the wider plan.
 
 Vercel hosting is planned after the app is complete. The hackathon also requires a working Cloud Run deployment; that remains part of the submission plan.
 

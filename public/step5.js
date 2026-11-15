@@ -143,6 +143,10 @@ Backend.start().then(async online => {
   let skipped = false;
   try { skipped = sessionStorage.getItem('aegis-account-skipped') === '1'; } catch {}
   const signedIn = await Backend.signedIn();
-  if (signedIn && !Backend.profile()) { account.view = 'finish'; openAccount(); }
-  else if (!signedIn && !skipped && !document.querySelector('#modal').open) openAccount();
+  const ask = () => {
+    if (signedIn && !Backend.profile()) { account.view = 'finish'; openAccount(); }
+    else if (!signedIn && !skipped && !document.querySelector('#modal').open) openAccount();
+  };
+  // On a first visit the tour comes first; the account question follows it.
+  if (!state.tourDone) (window.afterTour ||= []).push(ask); else ask();
 });
