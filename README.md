@@ -20,15 +20,15 @@ Aegis Home brings everyday care into one gentle place:
 - big, readable buttons and text in English or Hindi
 - reminders that ring on time
 - a companion to talk to
-- a care circle that keeps family close
+- Trusted People who keep family close
 - verified elderly homes that can step in when someone is abandoned
 
 ## Who it's for
 
 | | What they get |
 |---|---|
-| 👵 **Grandparents** | Medicines with photo check-ins, daily routine and appointment alarms, Saathi to talk to, music they love, photos and voices of family, and a thought for the day |
-| 🧑‍🤝‍🧑 **Caretakers** (family or carers) | Join a grandparent's care circle with a 6-digit code, see today's medicines with check-in photos, get alerts the moment help is needed, and call or WhatsApp in one tap |
+| 👵 **Grandparents** | Medicines with photo check-ins, daily routine and appointment alarms, Yaar to talk to, music they love, photos and voices of family, and a thought for the day |
+| 🧑‍🤝‍🧑 **Caretakers** (family or carers) | Join a grandparent's Trusted People with a 6-digit code, see today's medicines with check-in photos, get alerts the moment help is needed, and call or WhatsApp in one tap |
 | 🏠 **Elderly homes** | A government-verified account that receives alerts, with location, from nearby older people who need a safe place |
 
 ## Features
@@ -40,8 +40,8 @@ Aegis Home brings everyday care into one gentle place:
 - **Gentle alarms:** a soft chime, "Okay, thank you", or "In 5 minutes". Missed reminders from earlier today are shown when you return.
 
 ### Company and comfort
-- **Saathi:** a warm AI companion (Claude) that chats about anything in English, Hindi or Hinglish. It remembers the conversation and knows today's schedule, and there is a Listen button and a microphone. Without a key, an offline Saathi still holds a real conversation. Saathi never advises medicine doses. Emergency words show **Call 112 / 108** buttons; feeling abandoned shows **Elderline 14567**.
-- **Peace & music:** Saathi asks one easy question at a time: a favourite singer, then the type of music, then the faith or style (bhajans, naat, gurbani, hymns, classical ragas, old film songs, regional languages and more). The songs then **play inside the app**.
+- **Yaar:** a warm AI companion (Claude) that chats about anything in English, Hindi or Hinglish. It remembers the conversation and knows today's schedule, and there is a Listen button and a microphone. Without a key, an offline Yaar still holds a real conversation. Yaar never advises medicine doses. Emergency words show **Call 112 / 108** buttons; feeling abandoned shows **Elderline 14567**.
+- **Peace & music:** Yaar asks one easy question at a time: a favourite singer, then the type of music, then the faith or style (bhajans, naat, gurbani, hymns, classical ragas, old film songs, regional languages and more). The songs then **play inside the app**.
 - **My loved ones:** name or nickname, a photo, a video and **voice notes** recorded in the app. Tap a face to hear their voice.
 - **A thought for today:** 60 short thoughts in simple English and Hindi, sometimes with a little humour, on:
   - living together across religions and castes
@@ -54,7 +54,7 @@ Aegis Home brings everyday care into one gentle place:
 
 ### Family and safety
 - **Accounts:** Grandparent, Caretaker or Elderly Home. Sign in with a **WhatsApp number and a 6-digit passcode**; there are no SMS codes to wait for.
-- **Care circle:** the grandparent shares a 6-digit code (one use, 24 hours, 5 tries) on WhatsApp. They choose **view only** or **help manage**, and can remove anyone at any time.
+- **Trusted People:** the grandparent shares a 6-digit code (one use, 24 hours, 5 tries) on WhatsApp. They choose **view only** or **help manage**, and can remove anyone at any time.
 - **Verified elderly homes:** they upload their registration certificate and location. An admin checks it before the home can receive any alert.
 
 ### Help that reaches people
@@ -62,8 +62,8 @@ Aegis Home brings everyday care into one gentle place:
   - Family members get the alert in their app within seconds, with a chime.
   - An abandonment alert goes to the **nearest verified elderly homes**.
   - Location is shared **live** until the person taps **I'm safe now**.
-- **Missed medicines:** every 10 minutes the database checks for medicines more than 30 minutes late with no photo check-in, and alerts the care circle once.
-- **Shared check-ins:** the medicine list and each check-in photo are shared privately with the care circle. A caretaker sees **Today's care** at a glance.
+- **Missed medicines:** every 10 minutes the database checks for medicines more than 30 minutes late with no photo check-in, and alerts their Trusted People once.
+- **Shared check-ins:** the medicine list and each check-in photo are shared privately with their Trusted People. A caretaker sees **Today's care** at a glance.
 - **WhatsApp:**
   - messages are already written with a map link: to a caretaker, to anyone ("Send my location"), or with a check-in photo
   - they open on the person's phone for them to send
@@ -79,13 +79,13 @@ Aegis Home brings everyday care into one gentle place:
 
 ## Screens
 
-| Today | Care circle | Loved ones | Extra large size |
+| Today | Trusted People | Loved ones | Extra large size |
 |---|---|---|---|
-| ![Today](docs/screens/step-5-home-quote-phone.png) | ![Care circle](docs/screens/step-5-care-caretaker-phone.png) | ![Loved one](docs/screens/step-5-loved-detail-phone.png) | ![Extra large](docs/screens/step-5-xlarge-phone.png) |
+| ![Today](docs/screens/step-5-home-quote-phone.png) | ![Trusted People](docs/screens/step-5-care-caretaker-phone.png) | ![Loved one](docs/screens/step-5-loved-detail-phone.png) | ![Extra large](docs/screens/step-5-xlarge-phone.png) |
 
-| Help sent | Alert arrives for family | Today's care | Saathi |
+| Help sent | Alert arrives for family | Today's care | Yaar |
 |---|---|---|---|
-| ![Help sent](docs/screens/step-6-help-active-phone.png) | ![Alert](docs/screens/step-6-caretaker-alert-phone.png) | ![Today's care](docs/screens/step-6-caretaker-today-phone.png) | ![Saathi](docs/screens/step-4-chat-phone.png) |
+| ![Help sent](docs/screens/step-6-help-active-phone.png) | ![Alert](docs/screens/step-6-caretaker-alert-phone.png) | ![Today's care](docs/screens/step-6-caretaker-today-phone.png) | ![Yaar](docs/screens/step-4-chat-phone.png) |
 
 | Music guide | Appointment alarm | Tour | Emergency numbers |
 |---|---|---|---|
@@ -108,9 +108,9 @@ Browser (plain HTML, CSS, JavaScript; no build step)
         profiles · care_links · elderly_homes · medicines · dose_checkins · alerts · loved_ones
 ```
 
-- **Front end:** plain JavaScript, so it works on low-end phones. Pure logic lives in small, tested modules: alarms, the dose ledger, the music guide, offline Saathi, quotes and phone numbers.
+- **Front end:** plain JavaScript, so it works on low-end phones. Pure logic lives in small, tested modules: alarms, the dose ledger, the music guide, offline Yaar, quotes and phone numbers.
 - **Server:** small Node functions in `api/`, run as Vercel functions and reused by the local server.
-- **AI:** Claude for Saathi and for picking music, with a safe offline fallback.
+- **AI:** Claude for Yaar and for picking music, with a safe offline fallback.
 - **Data:** Supabase, with privacy enforced in the database itself (Row Level Security). Files go to private storage with short-lived links.
 
 ## Privacy and security
@@ -136,9 +136,9 @@ Every key in `.env` is optional, and the app tells you plainly what is off.
 
 | Key | Turns on |
 |---|---|
-| `ANTHROPIC_API_KEY` | Live Saathi chat and smart music picks |
+| `ANTHROPIC_API_KEY` | Live Yaar chat and smart music picks |
 | `YOUTUBE_API_KEY` | Faster, exact song results |
-| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | Accounts, care circle, shared loved ones. See [Supabase setup](docs/supabase-setup.md) |
+| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | Accounts, Trusted People, shared loved ones. See [Supabase setup](docs/supabase-setup.md) |
 
 To try it without installing anything, download [`previews/step-6.html`](previews/step-6.html) (GitHub: **Download raw file**) and open it in Chrome or Edge. It runs offline on the device.
 
@@ -155,7 +155,7 @@ The tests cover:
 - alarm timing at IST midnight, snooze and early appointment alarms
 - medicine check-ins
 - the music guide for every faith
-- offline Saathi safety replies
+- offline Yaar safety replies
 - phone numbers and passcodes
 - the quote deck
 - **database privacy and alert rules run against a real Postgres engine** (PGlite): who sees each alert, live location, and missed medicines alerted exactly once
@@ -167,7 +167,7 @@ Each step was also checked in a real browser at desktop and phone sizes. Steps 5
 | Folder | Contents |
 |---|---|
 | `public/` | The app: pages, styles and logic (`stepN.js` and `stepN.css` per step) |
-| `api/`, `server/` | Saathi, music, config and keep-alive endpoints |
+| `api/`, `server/` | Yaar, music, config and keep-alive endpoints |
 | `supabase/migrations/` | Database tables, privacy rules and functions |
 | `tests/` | Automated tests |
 | `scripts/` | Local server, checks and preview builder |
@@ -181,8 +181,8 @@ Each step was also checked in a real browser at desktop and phone sizes. Steps 5
 | [Step 1](previews/step-1.html) | The white-and-gold English and Hindi design | [Notes](docs/step-1.md) |
 | [Step 2](previews/step-2.html) | Daily medicine photo check-ins | [Notes](docs/step-2.md) |
 | [Step 3](previews/step-3.html) | Routine and appointment alarms | [Notes](docs/step-3.md) |
-| [Step 4](previews/step-4.html) | Saathi chat, guided music, early appointment alarms | [Notes](docs/step-4.md) |
-| [Step 5](previews/step-5.html) | Accounts, care circle, loved ones, thought for the day, sizes, narrator, tour | [Notes](docs/step-5.md) |
+| [Step 4](previews/step-4.html) | Yaar chat, guided music, early appointment alarms | [Notes](docs/step-4.md) |
+| [Step 5](previews/step-5.html) | Accounts, Trusted People, loved ones, thought for the day, sizes, narrator, tour | [Notes](docs/step-5.md) |
 | [Step 6](previews/step-6.html) | Shared check-ins, missed-medicine alerts, Alert my family, I have been abandoned, live location, emergency numbers | [Notes](docs/step-6.md) |
 
 Each step is built on its own branch and merged through a reviewed pull request.
@@ -190,7 +190,7 @@ Each step is built on its own branch and merged through a reviewed pull request.
 ## Honest limits
 - Alarms need the app open and the phone awake; background alarms are not built yet.
 - A medicine photo records a check-in. It cannot prove the medicine was swallowed.
-- Saathi is an AI, not a person or a doctor, and it says so.
+- Yaar is an AI, not a person or a doctor, and it says so.
 - Elderly homes are verified by a person checking their registration; there is no public government API for this.
 
 ---

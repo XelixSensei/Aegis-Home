@@ -28,7 +28,7 @@ const decodeText = s => new DOMParser().parseFromString(String(s || ''), 'text/h
 state.saathiMemory ||= {};
 let saathiBusy = false;
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const greeting = () => t('Namaste! I’m Saathi. What would you like to talk about today — a favourite memory, music, or how your day feels?','नमस्ते! मैं साथी हूँ। आज किस बारे में बात करें — कोई प्यारी याद, संगीत, या आपका दिन कैसा रहा?');
+const greeting = () => t('Namaste! I’m Yaar. What would you like to talk about today — a favourite memory, music, or how your day feels?','नमस्ते! मैं यार हूँ। आज किस बारे में बात करें — कोई प्यारी याद, संगीत, या आपका दिन कैसा रहा?');
 
 function saathiContext() {
   const now = new Intl.DateTimeFormat('en-IN', {timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short'}).format(new Date());
@@ -52,10 +52,10 @@ const listenButton = key => 'speechSynthesis' in window ? `<div class="msg-tools
 
 chatPage = function() {
   const status = live.ai
-    ? t('Saathi is an AI companion, not a person or a doctor. Live conversation is on.','साथी एक AI साथी है, कोई इंसान या डॉक्टर नहीं। लाइव बातचीत चालू है।')
-    : t('Saathi is a computer helper, not a person or a doctor. Live AI is not connected here, so Saathi gives simple replies from this device.','साथी एक कंप्यूटर सहायक है, कोई इंसान या डॉक्टर नहीं। यहाँ लाइव AI जुड़ा नहीं है, इसलिए साथी इसी डिवाइस से आसान जवाब देता है।');
+    ? t('Yaar is an AI companion, not a person or a doctor. Live conversation is on.','यार एक AI साथी है, कोई इंसान या डॉक्टर नहीं। लाइव बातचीत चालू है।')
+    : t('Yaar is a computer helper, not a person or a doctor. Live AI is not connected here, so Yaar gives simple replies from this device.','यार एक कंप्यूटर सहायक है, कोई इंसान या डॉक्टर नहीं। यहाँ लाइव AI जुड़ा नहीं है, इसलिए यार इसी डिवाइस से आसान जवाब देता है।');
   const prompts = [["Tell me about music","संगीत की बात करें"],["I feel lonely","मैं अकेला महसूस कर रहा हूँ"],["Help me with my medicines","दवाओं के बारे में मदद चाहिए"],["Tell me a joke","कोई चुटकुला सुनाओ"],["Tell me a story","कोई कहानी सुनाओ"]];
-  return `${header(t('A conversation with Saathi','साथी से बातचीत'),t('A little company, whenever you feel like talking.','जब बात करने का मन हो, थोड़ा साथ।'))}<div class="notice">${status}</div><div class="card"><div class="chat-area" aria-live="polite"><div class="message">${esc(greeting())}${listenButton('greet')}</div>${state.messages.map((m,i)=>`<div class="message ${m.user?'user':''}">${esc(m.text)}${m.user?'':listenButton(i)+messageActions(m)}</div>`).join('')}${saathiBusy?`<div class="message typing">${t('Saathi is typing…','साथी लिख रहा है…')}</div>`:''}</div><div class="suggestions">${prompts.map(([en,hi])=>`<button class="btn secondary small" data-prompt="${t(en,hi)}" ${saathiBusy?'disabled':''}>${t(en,hi)}</button>`).join('')}</div><form class="chat-form" id="chat-form">${Recognition?`<button class="btn secondary mic" type="button" data-mic aria-label="${t('Speak your message','बोलकर संदेश दें')}">${icon('mic')}</button>`:''}<input id="chat-input" maxlength="1000" required aria-label="${t('Your message','आपका संदेश')}" placeholder="${t('Type what’s on your mind…','अपने मन की बात लिखें…')}"><button class="btn" type="submit" ${saathiBusy?'disabled':''}>${t('Send','भेजें')}${icon('arrow')}</button></form></div>`;
+  return `${header(t('A conversation with Yaar','यार से बातचीत'),t('A little company, whenever you feel like talking.','जब बात करने का मन हो, थोड़ा साथ।'))}<div class="notice">${status}</div><div class="card"><div class="chat-area" aria-live="polite"><div class="message">${esc(greeting())}${listenButton('greet')}</div>${state.messages.map((m,i)=>`<div class="message ${m.user?'user':''}">${esc(m.text)}${m.user?'':listenButton(i)+messageActions(m)}</div>`).join('')}${saathiBusy?`<div class="message typing">${t('Yaar is typing…','यार लिख रहा है…')}</div>`:''}</div><div class="suggestions">${prompts.map(([en,hi])=>`<button class="btn secondary small" data-prompt="${t(en,hi)}" ${saathiBusy?'disabled':''}>${t(en,hi)}</button>`).join('')}</div><form class="chat-form" id="chat-form">${Recognition?`<button class="btn secondary mic" type="button" data-mic aria-label="${t('Speak your message','बोलकर संदेश दें')}">${icon('mic')}</button>`:''}<input id="chat-input" maxlength="1000" required aria-label="${t('Your message','आपका संदेश')}" placeholder="${t('Type what’s on your mind…','अपने मन की बात लिखें…')}"><button class="btn" type="submit" ${saathiBusy?'disabled':''}>${t('Send','भेजें')}${icon('arrow')}</button></form></div>`;
 };
 function scrollChat() { const area = document.querySelector('.chat-area'); if (area) area.scrollTop = area.scrollHeight; }
 
@@ -155,8 +155,8 @@ function guideCard() {
       : `<div class="guide-options">${node.options.map(o => `<button class="btn secondary" data-guide="${id}:${o.id}">${t(o.en, o.hi)}</button>`).join('')}</div>`}`;
   }
   const nav = (mg.answers.length || mg.results) && !mg.loading ? `<div class="guide-nav"><button class="btn secondary small" data-guide-back>${t('Back','पीछे')}</button><button class="btn secondary small" data-guide-restart>${t('Start over','फिर से शुरू करें')}</button></div>` : '';
-  const wish = mg.results || mg.loading ? '' : `<form id="wish-form" class="chat-form guide-input"><input id="wish-input" maxlength="200" aria-label="${t('Tell Saathi what you would like to hear','साथी को बताइए क्या सुनना है')}" placeholder="${t('Or just tell me, like “calm songs for the evening”','या बस बताइए, जैसे “शाम के लिए शांत गाने”')}"><button class="btn" type="submit">${t('Find','खोजें')}</button></form>`;
-  return `<section class="card wide-card guide-card"><div class="card-head"><div class="card-title">${icon('music')}<h2>${t('Let Saathi find your music','साथी से संगीत चुनवाएँ')}</h2></div></div>${body}${nav}${wish}</section>`;
+  const wish = mg.results || mg.loading ? '' : `<form id="wish-form" class="chat-form guide-input"><input id="wish-input" maxlength="200" aria-label="${t('Tell Yaar what you would like to hear','यार को बताइए क्या सुनना है')}" placeholder="${t('Or just tell me, like “calm songs for the evening”','या बस बताइए, जैसे “शाम के लिए शांत गाने”')}"><button class="btn" type="submit">${t('Find','खोजें')}</button></form>`;
+  return `<section class="card wide-card guide-card"><div class="card-head"><div class="card-title">${icon('music')}<h2>${t('Let Yaar find your music','यार से संगीत चुनवाएँ')}</h2></div></div>${body}${nav}${wish}</section>`;
 }
 const musicBeforeStep4 = musicPage;
 musicPage = function() { return musicBeforeStep4().replace('<div class="music-grid">', `${guideCard()}<div class="music-grid">`); };

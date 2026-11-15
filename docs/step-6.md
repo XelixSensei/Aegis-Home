@@ -4,27 +4,27 @@ This step builds on Step 5. The white-and-gold design is unchanged; each feature
 
 ## What's new
 
-### 1. Today's medicines, shared with the care circle
-- A dose is checked in only with a photo, as in Step 2. Now, for a signed-in grandparent, **the medicine list and each check-in photo are shared privately** with their care circle.
+### 1. Today's medicines, shared with their Trusted People
+- A dose is checked in only with a photo, as in Step 2. Now, for a signed-in grandparent, **the medicine list and each check-in photo are shared privately** with their Trusted People.
 - A caretaker taps **Today's care** next to a grandparent's name and sees each medicine:
   - checked in, with its photo
   - due now
   - no check-in yet, time passed
   - later today
-- If a check-in is removed on the grandparent's phone, it is removed for the care circle too.
+- If a check-in is removed on the grandparent's phone, it is removed for their Trusted People too.
 - A saved check-in can also be **sent on WhatsApp**. On phones the photo itself is shared; elsewhere a short message is.
 
 ### 2. Missed-medicine alerts
 - Every 10 minutes the database checks for medicines whose time passed more than 30 minutes ago (India time) with no photo check-in.
-- Each missed medicine becomes **one** alert for the care circle, never repeated. It names the medicine, for example "No check-in yet for BP tablet (08:00)".
+- Each missed medicine becomes **one** alert for their Trusted People, never repeated. It names the medicine, for example "No check-in yet for BP tablet (08:00)".
 - Medicines added after their time that day are not counted as missed.
 
 ### 3. "Alert my family" and "I have been abandoned"
 - Both buttons are on the new **Help & emergency** page and in the **profile** (Your account). Tap once, then tap again to send, so a slip of the hand sends nothing.
 - **Alert my family:**
-  - the care circle's app shows the alert **by itself**, within seconds, with a chime and a phone notification if allowed
+  - their Trusted People's app shows the alert **by itself**, within seconds, with a chime and a phone notification if allowed
   - the alert includes the grandparent's location
-  - the grandparent sees their care circle with **Call** and **WhatsApp** buttons, the WhatsApp message already written with a map link
+  - the grandparent sees their Trusted People with **Call** and **WhatsApp** buttons, the WhatsApp message already written with a map link
 - **I have been abandoned:**
   - the alert goes to **verified elderly homes whose service area covers the person's location**, nearest first
   - the grandparent sees those homes with a Call button
@@ -33,7 +33,7 @@ This step builds on Step 5. The white-and-gold design is unchanged; each feature
 - **I'm safe now** ends the alert and stops sharing the location.
 
 ### 4. Caretakers and elderly homes receive alerts
-- Caretakers get an **Alerts** section at the top of their care circle page. Each alert has Call, WhatsApp, Live location, **I'm on it** and **Resolved**.
+- Caretakers get an **Alerts** section at the top of their Trusted People page. Each alert has Call, WhatsApp, Live location, **I'm on it** and **Resolved**.
 - When a caretaker taps "I'm on it", the grandparent's alert shows that someone is on it.
 - Elderly homes see **Alerts sent to your home**, with the same actions.
 - Alerts arrive live (Supabase Realtime), with a once-a-minute check as a safety net. Optional browser notifications cover the times the page is in the background.

@@ -16,9 +16,9 @@ Camera capture requires HTTPS or localhost and permission. A file chooser is ava
 
 ## Still to build
 
-2. Verified phone sign-in, consent-based care circles, private shared photos, and missed-check-in delivery with delivery status.
+2. Verified phone sign-in, consent-based Trusted People, private shared photos, and missed-check-in delivery with delivery status.
 3. Routine and appointment reminders, including a reliable server scheduler.
-4. Live Saathi chat and guided YouTube playback.
+4. Live Yaar chat and guided YouTube playback.
 5. Three accessible interface sizes, narration, tutorial, and a reviewed phone preview.
 6. Emergency contacts and care-home assistance, with human verification of organizations.
 7. Loved-one photos, videos and voice notes; varied bilingual learning cards.

@@ -44,6 +44,7 @@ Bilingual (English/Hindi) elderly-care and medication app for older people in In
 - **Time:** use India Standard Time (`Asia/Kolkata`) everywhere.
 - **Storage:** app state lives in localStorage under `aegis-step2-v1`. Photos live in IndexedDB.
 - **Adding a public file:** reference it in `index.html`. The server serves anything in `public/` with a known extension, `npm run check` covers every JS file automatically, and the preview build inlines every `<link>` and `<script>`.
+- **Names people see (Xelix's choice):** the AI companion is **Yaar** (Hindi **यार**), never "Saathi". The family group is **Trusted People** (Hindi **अपने लोग**), never "care circle". Code names stay as they are (`saathi-local.js`, `/api/saathi`, `SaathiLocal`, `circle`, `care_links`, page id `care`).
 - **Honest copy:** never mention a feature that isn't built yet. Say plainly when AI or search is offline.
 
 ## Commands
@@ -91,6 +92,10 @@ In-app Chrome screenshots time out on this machine. Use headless Chrome over CDP
 
 ## Change log
 Newest first.
+
+- **2026-11-15 (rename)**: Branch `step-6`.
+  - On every screen and in README/docs: "care circle" → **Trusted People** (Hindi "देखभाल समूह/साथी" → **अपने लोग**, with grammar fitted), and "Saathi" → **Yaar** (Hindi साथी → यार; "AI साथी" meaning companion is kept).
+  - The AI system prompt now says "You are Yaar". Nothing else changed: no code names, files, routes or screenshots. Screenshots in `docs/screens` still show the old names.
 
 - **2026-11-15 (Step 6)**: Branch `step-6`, v0.6.0.
   - Added `supabase/migrations/0002_alerts.sql` (idempotent; Xelix ran it on the live project), `public/step6.js` and `step6.css`. `backend.js` gained the sync, alert and realtime calls.

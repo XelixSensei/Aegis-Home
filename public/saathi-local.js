@@ -20,8 +20,8 @@
         'मैं आपकी दवा का समय याद दिलाने में मदद कर सकता हूँ, लेकिन मात्रा या छूटी दवा के बारे में डॉक्टर या फ़ार्मासिस्ट ही बताएँ। {meds} क्या मैं मेरी दवाएँ खोल दूँ?')],
       action: {page: 'meds'}},
     {id: 'whoami', re: /are you (a )?(human|real|person|robot|ai)|who are you|what are you|तुम कौन|आप कौन|क्या आप इंसान|tum kaun|aap kaun/i, replies: [
-      R('I am Saathi, a computer helper inside this app, not a real person. But I am always happy to listen and chat with you.',
-        'मैं साथी हूँ, इस ऐप के अंदर एक कंप्यूटर सहायक, कोई असली इंसान नहीं। लेकिन मैं हमेशा आपकी बात सुनने और बात करने के लिए तैयार हूँ।')]},
+      R('I am Yaar, a computer helper inside this app, not a real person. But I am always happy to listen and chat with you.',
+        'मैं यार हूँ, इस ऐप के अंदर एक कंप्यूटर सहायक, कोई असली इंसान नहीं। लेकिन मैं हमेशा आपकी बात सुनने और बात करने के लिए तैयार हूँ।')]},
     {id: 'greet', re: /^(hi|hello|hey|namaste|namaskar|good (morning|afternoon|evening)|ram ram|jai shri krishna|radhe radhe|sat sri akal|assalam|salaam|adaab)\b|नमस्ते|नमस्कार|राम राम|जय श्री कृष्ण|राधे राधे|सत श्री अकाल|अस्सलाम|आदाब|सुप्रभात/i, replies: [
       R('Namaste{name}! It is lovely to hear from you. How are you feeling today?', 'नमस्ते{name}! आपसे बात करके अच्छा लगा। आज आप कैसा महसूस कर रहे हैं?'),
       R('Hello{name}! I was hoping you would come by. What is on your mind today?', 'नमस्ते{name}! अच्छा हुआ आप आए। आज मन में क्या चल रहा है?'),

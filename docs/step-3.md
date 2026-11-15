@@ -26,7 +26,7 @@ Download `previews/step-3.html` and open it in Chrome or Edge. For camera access
 
 ## Scope
 
-Keep one app tab open and the device awake. Browser timers and sound can pause in the background or when the screen locks. This is not yet a reliable background reminder service. Restart reminders each time the app opens. No email, WhatsApp, care-circle alert, or photo upload is sent.
+Keep one app tab open and the device awake. Browser timers and sound can pause in the background or when the screen locks. This is not yet a reliable background reminder service. Restart reminders each time the app opens. No email, WhatsApp, Trusted People alert, or photo upload is sent.
 
 The standalone preview's browser storage may differ from localhost or the future hosted app. Do not expect records to transfer between them automatically.
 

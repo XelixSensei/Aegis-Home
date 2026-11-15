@@ -60,7 +60,7 @@ Add `SUPABASE_URL` and `SUPABASE_ANON_KEY` under **Project → Settings → Envi
 ## Who can see what
 | Person | Can see |
 |---|---|
-| Grandparent | Their own profile, medicines, check-in photos, alerts and loved ones; people in their care circle |
+| Grandparent | Their own profile, medicines, check-in photos, alerts and loved ones; people in their Trusted People |
 | Caretaker | Nothing, until the grandparent shares a 6-digit invite code (valid 24 hours, 5 tries). Then the grandparent's data; changes only with "manage" permission |
 | Elderly home | Its own details; an elder's alert and profile only when that alert was sent to it |
 | Admin | Homes waiting for verification and their certificates |
